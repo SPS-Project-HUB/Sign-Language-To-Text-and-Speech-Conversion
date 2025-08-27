@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Project Setup Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #00c9ff, #92fe9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .content {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card h2 {
+            margin-bottom: 20px;
+            color: #00c9ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid rgba(0, 201, 255, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .card h2 i {
+            font-size: 1.8rem;
+        }
+        
+        .steps {
+            list-style-type: none;
+        }
+        
+        .steps li {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .steps li:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .steps li .number {
+            background: linear-gradient(90deg, #00c9ff, #92fe9d);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .code {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            border-left: 4px solid #00c9ff;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(90deg, #00c9ff, #92fe9d);
+            color: #000;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .note {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-left: 4px solid #00c9ff;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .dependencies {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .dependency {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .dependency:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .video-feed {
+            width: 100%;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-feed::before {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: scanning 2s infinite linear;
+        }
+        
+        @keyframes scanning {
+            0% { left: -100px; }
+            100% { left: 100%; }
+        }
+        
+        .video-placeholder {
+            font-size: 5rem;
+            opacity: 0.3;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            opacity: 0.7;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .prerequisites {
+            margin-top: 20px;
+        }
+        
+        .prerequisites ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .prerequisites li {
+            margin-bottom: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sign Language to Text & Speech Conversion</h1>
+            <p class="subtitle">Complete Setup Guide for Local Development</p>
+            <p>This comprehensive guide will help you clone, set up, and run the Sign Language to Text and Speech Conversion project from GitHub.</p>
+        </header>
+        
+        <div class="content">
+            <div class="card">
+                <h2><i class="fas fa-download"></i> Cloning the Project</h2>
+                <ol class="steps">
+                    <li>
+                        <span class="number">1</span>
+                        <span>Install Git on your system if you haven't already</span>
+                    </li>
+                    <li>
+                        <span class="number">2</span>
+                        <span>Open your terminal or command prompt</span>
+                    </li>
+                    <li>
+                        <span class="number">3</span>
+                        <span>Navigate to your desired directory</span>
+                    </li>
+                    <li>
+                        <span class="number">4</span>
+                        <span>Run the clone command:</span>
+                    </li>
+                </ol>
+                <div class="code">
+                    git clone https://github.com/Devansh-47/Sign-Language-To-Text-and-Speech-Conversion.git
+                </div>
+                <a href="https://github.com/Devansh-47/Sign-Language-To-Text-and-Speech-Conversion" class="btn" target="_blank">
+                    <i class="fab fa-github"></i> View GitHub Repository
+                </a>
+                
+                <div class="prerequisites">
+                    <h3>Prerequisites:</h3>
+                    <ul>
+                        <li>Git installed on your system</li>
+                        <li>Python 3.7 or higher</li>
+                        <li>Webcam for gesture recognition</li>
+                        <li>At least 4GB RAM (8GB recommended)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-cogs"></i> Setup & Installation</h2>
+                <ol class="steps">
+                    <li>
+                        <span class="number">1</span>
+                        <span>Navigate to the project directory:</span>
+                    </li>
+                    <div class="code">
+                        cd Sign-Language-To-Text-and-Speech-Conversion
+                    </div>
+                    <li>
+                        <span class="number">2</span>
+                        <span>Create a virtual environment (recommended):</span>
+                    </li>
+                    <div class="code">
+                        python -m venv signenv
+                    </div>
+                    <li>
+                        <span class="number">3</span>
+                        <span>Activate the virtual environment:</span>
+                    </li>
+                    <div class="code">
+                        # On Windows: signenv\Scripts\activate<br>
+                        # On macOS/Linux: source signenv/bin/activate
+                    </div>
+                    <li>
+                        <span class="number">4</span>
+                        <span>Install the required dependencies:</span>
+                    </li>
+                </ol>
+                <div class="code">
+                    pip install -r requirements.txt
+                </div>
+                
+                <h3>Key Dependencies:</h3>
+                <div class="dependencies">
+                    <div class="dependency">Python 3.x</div>
+                    <div class="dependency">OpenCV</div>
+                    <div class="dependency">TensorFlow</div>
+                    <div class="dependency">Keras</div>
+                    <div class="dependency">NumPy</div>
+                    <div class="dependency">gTTS</div>
+                    <div class="dependency">PyAudio</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="card">
+                <h2><i class="fas fa-play-circle"></i> Running the Application</h2>
+                <ol class="steps">
+                    <li>
+                        <span class="number">1</span>
+                        <span>Ensure your webcam is connected and functional</span>
+                    </li>
+                    <li>
+                        <span class="number">2</span>
+                        <span>Run the main Python script:</span>
+                    </li>
+                    <div class="code">
+                        python main.py
+                    </div>
+                    <li>
+                        <span class="number">3</span>
+                        <span>The application will open a window showing the webcam feed</span>
+                    </li>
+                    <li>
+                        <span class="number">4</span>
+                        <span>Perform sign language gestures in front of the camera</span>
+                    </li>
+                    <li>
+                        <span class="number">5</span>
+                        <span>View the text output and listen to the speech conversion</span>
+                    </li>
+                </ol>
+                
+                <div class="video-feed">
+                    <div class="video-placeholder">
+                        <i class="fas fa-video"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-info-circle"></i> Project Overview</h2>
+                <p>This project converts sign language gestures into text and speech output using machine learning and computer vision.</p>
+                
+                <div class="note">
+                    <p><strong>Features:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Real-time sign language recognition</li>
+                        <li>Text output of recognized gestures</li>
+                        <li>Speech synthesis of recognized text</li>
+                        <li>Support for multiple sign language gestures</li>
+                        <li>Customizable gesture training</li>
+                    </ul>
+                </div>
+                
+                <div class="note">
+                    <p><strong>Project Structure:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><code>main.py</code> - Main application script</li>
+                        <li><code>model/</code> - Pre-trained ML models</li>
+                        <li><code>dataset/</code> - Training data collection</li>
+                        <li><code>utils/</code> - Helper functions and utilities</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="card">
+                <h2><i class="fas fa-exclamation-triangle"></i> Troubleshooting</h2>
+                <p>Common issues and solutions:</p>
+                <div class="note">
+                    <p><strong>Webcam not working:</strong> Check if it's being used by another application</p>
+                    <p><strong>Dependency issues:</strong> Try creating a virtual environment</p>
+                    <p><strong>Model not loading:</strong> Check the path to model files</p>
+                    <p><strong>No audio output:</strong> Check audio drivers and PyAudio installation</p>
+                    <p><strong>CUDA errors:</strong> Reinstall TensorFlow with GPU support if needed</p>
+                </div>
+                
+                <h3>Testing Your Setup</h3>
+                <ol class="steps">
+                    <li>
+                        <span class="number">1</span>
+                        <span>Test webcam with OpenCV:</span>
+                    </li>
+                    <div class="code">
+                        import cv2<br>
+                        cap = cv2.VideoCapture(0)<br>
+                        ret, frame = cap.read()<br>
+                        print("Webcam working:", ret)<br>
+                        cap.release()
+                    </div>
+                    <li>
+                        <span class="number">2</span>
+                        <span>Test TensorFlow installation:</span>
+                    </li>
+                    <div class="code">
+                        import tensorflow as tf<br>
+                        print("TensorFlow version:", tf.__version__)
+                    </div>
+                </ol>
+                
+                <a href="https://github.com/Devansh-47/Sign-Language-To-Text-and-Speech-Conversion/issues" class="btn" target="_blank">
+                    <i class="fas fa-bug"></i> Check Known Issues
+                </a>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-book"></i> Additional Resources</h2>
+                
+                <div class="note">
+                    <p><strong>Learning Resources:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><a href="https://www.tensorflow.org/tutorials" style="color: #00c9ff;">TensorFlow Tutorials</a></li>
+                        <li><a href="https://docs.opencv.org/master/d6/d00/tutorial_py_root.html" style="color: #00c9ff;">OpenCV Tutorials</a></li>
+                        <li><a href="https://www.kaggle.com/datasets/datamunge/sign-language-mnist" style="color: #00c9ff;">Sign Language Datasets</a></li>
+                    </ul>
+                </div>
+                
+                <div class="note">
+                    <p><strong>Useful Tools:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>LabelImg for image annotation</li>
+                        <li>Jupyter Notebook for experimentation</li>
+                        <li>TensorBoard for model visualization</li>
+                    </ul>
+                </div>
+                
+                <div class="note">
+                    <p><strong>Next Steps:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Train on custom sign language gestures</li>
+                        <li>Extend to sentence-level recognition</li>
+                        <li>Optimize model for better accuracy</li>
+                        <li>Create a web interface for the application</li>
+                    </ul>
+                </div>
+                
+                <a href="https://github.com/Devansh-47/Sign-Language-To-Text-and-Speech-Conversion/wiki" class="btn" target="_blank">
+                    <i class="fas fa-question-circle"></i> Project Wiki
+                </a>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Sign Language to Text and Speech Conversion Project | Setup Guide</p>
+            <p>This is a community project. Contributions are welcome!</p>
+            <p>For help, create an issue on the GitHub repository or consult the documentation.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple animation for step items
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.steps li');
+            
+            steps.forEach((step, index) => {
+                // Add delay based on index for staggered animation
+                step.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            // Add interactive functionality for code blocks
+            const codeBlocks = document.querySelectorAll('.code');
+            codeBlocks.forEach(block => {
+                block.addEventListener('click', function() {
+                    const text = this.innerText;
+                    navigator.clipboard.writeText(text).then(() => {
+                        const original = this.innerText;
+                        this.innerText = 'Copied to clipboard!';
+                        setTimeout(() => {
+                            this.innerText = original;
+                        }, 1500);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
